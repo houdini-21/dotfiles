@@ -1,0 +1,21 @@
+#background_opacity: 0.75
+
+window:
+   opacity: 0.5
+font:
+  normal:
+    family: FiraCode Nerd Font 
+    style: Medium 
+
+  bold:
+    family: FiraCode Nerd Font
+    style: Bold
+
+  italic:
+    family: FiraCode Nerd Font
+    style: Italic
+
+  bold_italic:
+    family: FiraCode Nerd Font
+    style: Bold Italic
+  size: 11
