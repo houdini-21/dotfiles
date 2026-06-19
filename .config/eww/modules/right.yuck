@@ -1,0 +1,16 @@
+;; Lógica para la Barra 1 (Principal)
+(defwidget right_modules []
+  (box :orientation "h" :space-evenly false :halign "end" :valign "center" :spacing 10
+    (system_info)
+    (button :class "pill pill__power" :onclick "poweroff" "󰐥")))
+
+;; Lógica para la Barra 2 (Secundaria - Ejemplo: Monitoreo de Hardware)
+(defwidget secondary_right []
+  (box :orientation "h" :space-evenly false :halign "end" :valign "center" :spacing 10
+    (hardware_module)))
+
+;; Widget base de Iconos (reutilizable en ambas)
+(defwidget system_info []
+  (box :class "pill pill__sysinfo" :spacing 12
+    (label :text "󰤨" :class "pill__sysinfo-wifi-icon")
+    (label :text "" :class "pill__sysinfo-vol-icon")))

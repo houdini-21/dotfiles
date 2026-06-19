@@ -1,0 +1,34 @@
+(include "./modules/variables.yuck")
+(include "./modules/notification.yuck")
+(include "./modules/workspaces.yuck")
+(include "./modules/weather.yuck")
+(include "./modules/hardware.yuck")
+(include "./modules/left.yuck")
+(include "./modules/right.yuck")
+(include "./modules/bars.yuck")
+(include "./modules/control_center.yuck")
+
+;; BARRA 1: Monitor Principal (Completa)
+(defwindow bar_primary
+  :monitor 1
+  :geometry (geometry :x "0%" :y "0px" :width "100%" :height "45px" :anchor "top center")
+  :stacking "fg"
+  :reserve (struts :distance "45px" :side "top")
+  :windowtype "dock"
+  (primary_layout))
+
+;; BARRA 2: Monitor Secundario (Simplificada)
+(defwindow bar_secondary
+  :monitor 0
+  :geometry (geometry :x "0%" :y "0px" :width "100%" :height "45px" :anchor "top center")
+  :stacking "fg"
+  :reserve (struts :distance "45px" :side "top")
+  :windowtype "dock"
+  (secondary_layout))
+
+
+(defwindow control_center
+  :monitor 1
+  :geometry (geometry :x "0px" :y "45px" :width "450px" :anchor "top right")
+  :stacking "fg"
+  (control_center))

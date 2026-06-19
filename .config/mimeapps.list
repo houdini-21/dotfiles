@@ -1,0 +1,23 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/postman=Postman.desktop
+video/mp4=org.kde.haruna.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/slack=slack_slack.desktop
+application/x-zerosize=antigravity.desktop
+x-scheme-handler/antigravity=antigravity.desktop
+
+[Added Associations]
+video/mp4=com.google.Chrome.desktop;mpv.desktop;org.kde.haruna.desktop;firefox.desktop;vlc.desktop;
+application/json=antigravity.desktop;bruno_bruno.desktop;
+video/x-matroska=google-chrome.desktop;
+application/toml=vim.desktop;
+text/x-log=antigravity.desktop;
+video/quicktime=firefox.desktop;com.google.Chrome.desktop;
+application/sql=antigravity.desktop;
+text/plain=antigravity.desktop;
+application/x-zerosize=antigravity.desktop;

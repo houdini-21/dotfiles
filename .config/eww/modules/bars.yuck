@@ -1,0 +1,15 @@
+;; Estructura para la Barra Principal
+(defwidget primary_layout []
+  (centerbox :class "main-container"
+    (left_modules)    ;; Contiene Perfil + Tiempo + Clima
+    (workspaces)
+    (right_modules)   ;; Contiene Wifi + Vol + Power
+  ))
+
+;; Estructura para la Barra Secundaria (Ejemplo: Solo tiempo y workspaces)
+(defwidget secondary_layout []
+  (centerbox :class "main-container"
+    (secondary_left)  ;; Solo el Reloj, por ejemplo
+    (workspaces)
+    (secondary_right) ;; Solo iconos de sistema, sin Power
+  ))

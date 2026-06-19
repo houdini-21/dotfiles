@@ -1,0 +1,5 @@
+(defwidget workspaces []
+  (literal
+    :halign "start"  :valign "center"
+    :content workspace))
+

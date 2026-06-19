@@ -1,0 +1,35 @@
+(deflisten workspace "scripts/workspaces.sh")
+(defpoll time :interval "1s" "date '+%I:%M %p'")
+(defpoll date :interval "1h" "date '+%a, %b %d'")
+
+(defpoll weatherIcon1 :interval "3h" "scripts/weather.sh --icon 0")
+(defpoll weatherDesc1 :interval "3h" "scripts/weather.sh --stat 0")
+(defpoll weatherTemp1 :interval "3h" "scripts/weather.sh --temp 0")
+
+;; Música
+(defpoll music_title :interval "1s" "playerctl metadata title || echo 'No Media'")
+(defpoll music_artist :interval "1s" "playerctl metadata artist || echo 'Unknown'")
+(deflisten music_art :initial "" "scripts/spotify_art.sh")
+
+(defpoll music_perc :interval "1s" :initial "0" "playerctl position -p spotify --format '{{ percent(position, mpris:length) }}' 2>/dev/null || echo 0")
+(defpoll music_status_icon :interval "1s" :initial "󰐊" "[ $(playerctl -p spotify status 2>/dev/null) = 'Playing' ] && echo '' || echo ''")
+(defpoll lengthSong :interval "1s" :initial 0 "playerctl metadata --format '{{ mpris:length / 1000000 }}' 2>/dev/null || echo 0")
+
+(defpoll positionSong :interval "1s" :initial 0 "playerctl position -p spotify --format '{{ position / 1000000 }}' 2>/dev/null || echo 0")
+(defpoll positionTime :interval "1s" "playerctl position -p spotify --format '{{ duration(position) }}' || echo '0:00'")
+(defpoll lengthTime :interval "1s" "playerctl metadata -p spotify --format '{{ duration(mpris:length) }}' || echo '0:00'")
+
+;; Sistema
+(defpoll volume_perc :interval "1s" "amixer sget Master | grep 'Front Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
+
+(defpoll volume_muted :interval "1s"
+  "amixer get Master | grep -Po '\\[(on|off)\\]' | head -1 | tr -d '[]'")
+
+(defpoll cpu_temp :interval "2s" "sensors amdgpu-pci-7200 | grep edge | awk '{print $2}' | tr -d '+°C' | xargs printf '%.0f°'")
+
+(defpoll gpu_usage :interval "2s" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{print $1\"%\"}'")
+
+(defpoll gpu_temp :interval "2s" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits | awk '{print $1\"°\"}'")
+
+
+(defpoll notif_history :interval "1s" "scripts/notifications.sh")

@@ -1,0 +1,439 @@
+$bg-main: #11111b;
+$active-workspace: #b5bfe2;
+$focus-workspace: #c6d0f5;
+$inactive-workspace: #51576d;
+$bg-pill: #1e1e2e;
+$fg-main: #fff;
+$accent: #89b4fa;
+$surface0: #313244;
+$base: #1e1e2e;
+$lavender: #b4befe;
+$overlay0: #6c7086;
+$red: #f38ba8;
+$green: #a6e3a1;
+
+window {
+  background-color: transparent;
+}
+
+.bar_primary,
+.bar_secondary {
+  background-color: $bg-main;
+  color: #cdd6f4;
+  font-family: "SF Pro";
+  font-size: 14px;
+  padding: 0px 15px;
+}
+
+.workspaces {
+  background-color: $bg-pill;
+  border-radius: 10px;
+  padding: 0px 15px;
+
+  button {
+    margin: 3px 1px;
+    padding: 1px 1px;
+    background-color: transparent;
+    font-size: 15px;
+
+    &.empty {
+      color: $inactive-workspace;
+    }
+
+    &.occupied {
+      color: $active-workspace;
+    }
+
+    &.focused {
+      color: $focus-workspace;
+    }
+  }
+}
+
+.bar_class {
+  background-color: transparent;
+}
+
+.pill {
+  background-color: $bg-pill;
+  color: $fg-main;
+  padding: 5px 12px;
+  border-radius: 10px;
+
+  &__time {
+    font-family: "SF Pro";
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  &__date {
+    font-family: "SF Pro";
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 10px;
+  }
+
+  &__power {
+    background-color: $accent;
+    color: #1e1e2e;
+    border-radius: 50%;
+    font-size: 18px;
+    padding: 2px 8px;
+  }
+
+  &__profile {
+    background-image: url("/home/houdini/Images/profile.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 30px;
+    min-width: 30px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(49, 50, 68, 0.1);
+  }
+
+  &__weather {
+    &-icon {
+      font-size: 16px;
+    }
+
+    &-temp {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  &__cpu {
+    &-icon {
+      font-size: 16px;
+    }
+
+    &-temp {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    &-usage {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  &__ram {
+    &-icon {
+      font-size: 16px;
+    }
+
+    &-usage {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  &__gpu {
+    &-icon {
+      font-size: 16px;
+    }
+
+    &-temp {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    &-usage {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  &__sysinfo {
+    &-wifi-icon {
+      font-size: 16px;
+    }
+
+    &-vol-icon {
+      font-size: 16px;
+      padding-right: 10px;
+    }
+  }
+}
+
+.cc {
+  &__window {
+    background-color: $bg-main;
+    border-radius: 0px 0px 0px 20px;
+    padding: 25px;
+  }
+
+  &__profile {
+    &-img {
+      background-image: url("/home/houdini/Images/profile.jpg");
+      background-size: cover;
+      min-width: 55px;
+      min-height: 55px;
+      border-radius: 50%;
+    }
+
+    &-name {
+      font-family: "SF Pro";
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    &-separator {
+      border-left: 2px solid $overlay0;
+      min-height: 20px;
+    }
+
+    &-status {
+      font-family: "SF Pro";
+      font-size: 17px;
+      color: $overlay0;
+    }
+  }
+
+  &__music {
+    background-color: $bg-pill;
+    padding: 15px;
+    border-radius: 20px;
+
+    &-art {
+      min-width: 60px;
+      min-height: 60px;
+      background-size: cover;
+      border-radius: 12px;
+    }
+
+    &-title {
+      font-family: "SF Pro";
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    &-artist {
+      font-family: "SF Pro";
+      font-size: 14px;
+      font-weight: 500;
+      color: $overlay0;
+    }
+
+    &-bar {
+      margin-top: 15px;
+
+      &-container {
+        & scale {
+          min-height: 0;
+          padding: 0;
+          margin: 0;
+        }
+
+        & scale trough highlight {
+          all: unset;
+          border-radius: 20px;
+          background-color: $accent;
+        }
+        & scale trough {
+          all: unset;
+          border-radius: 50px;
+          min-height: 8px;
+          min-width: 435px;
+          background-color: $overlay0;
+        }
+      }
+    }
+
+    &-controls {
+      &-button {
+        border-radius: 50%;
+        min-width: 20px;
+        min-height: 20px;
+        font-size: 20px;
+        background-color: transparent;
+      }
+    }
+
+    &-time {
+      &-pos {
+        font-family: "SF Pro";
+        font-size: 13px;
+        color: $overlay0;
+        font-weight: 500;
+      }
+
+      &-len {
+        font-family: "SF Pro";
+        font-size: 13px;
+        color: $overlay0;
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__volumen {
+    &-icon {
+      font-size: 20px;
+      margin-right: 10px;
+      color: $fg-main;
+
+      &.muted {
+        color: $red;
+      }
+
+      &.active {
+        color: $accent;
+      }
+    }
+
+    &-bar trough highlight {
+      all: unset;
+      border-radius: 20px;
+      background-color: $accent;
+    }
+    &-bar {
+      &.muted {
+        trough highlight {
+          background-color: $red;
+        }
+      }
+      &.active {
+        trough highlight {
+          background-color: $accent;
+        }
+      }
+    }
+
+    &-bar trough {
+      all: unset;
+      border-radius: 50px;
+      min-height: 10px;
+      min-width: 410px;
+      background-color: $overlay0;
+    }
+    &-mute-btn {
+      background-color: transparent;
+    }
+  }
+}
+
+scale contents trough slider {
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  min-width: 0;
+  min-height: 0;
+}
+
+.notifications-widget {
+  padding: 5px;
+
+  &__header {
+    margin-bottom: 15px;
+
+    label {
+      font-family: "SF Pro";
+      font-weight: 700;
+      font-size: 16px;
+      color: $fg-main;
+    }
+  }
+
+  &__img {
+    background-size: cover;
+    background-position: center;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+
+  &__clear {
+    background-color: $surface0;
+    color: $accent;
+    font-family: "SF Pro";
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 8px;
+    transition: 200ms;
+
+    &:hover {
+      background-color: $accent;
+      color: $bg-main;
+    }
+  }
+
+  &__item {
+    margin-bottom: 10px;
+    background-color: $bg-pill;
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  &__app {
+    font-family: "SF Pro";
+    font-size: 10px;
+    font-weight: 800;
+    color: $accent;
+    margin-bottom: 4px;
+  }
+
+  &__title {
+    font-family: "SF Pro";
+    font-weight: 600;
+    font-size: 15px;
+    color: $fg-main;
+  }
+
+  &__body {
+    font-family: "SF Pro";
+    font-size: 13px;
+    color: $overlay0;
+    margin-top: 2px;
+  }
+}
+
+.cc-tile {
+  background-color: $bg-pill;
+  padding: 15px;
+  border-radius: 15px;
+
+  &.active {
+    background-color: $accent;
+    color: $bg-main;
+
+    & > .cc-tile-icon {
+      color: $bg-main;
+    }
+  }
+
+  &.inactive {
+    border: 2px solid transparent;
+  }
+
+  &-icon {
+    font-size: 24px;
+    color: $fg-main;
+    margin-right: 15px;
+  }
+
+  &-label {
+    font-family: "SF Pro";
+    font-weight: 600;
+    font-size: 16px;
+
+    &.active {
+      color: $bg-pill;
+    }
+
+    &.inactive {
+      color: $fg-main;
+    }
+  }
+
+  &-status {
+    font-family: "SF Pro";
+    font-size: 14px;
+    color: $overlay0;
+  }
+}

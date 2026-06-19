@@ -1,0 +1,12 @@
+(defwidget weather_module []
+  (box :class "pill pill__weather"
+    :tooltip weatherDesc1
+    :orientation "h"
+    :space-evenly false
+    :spacing 16
+    (label :class "pill__weather-icon"
+    :text weatherIcon1)
+    (label :class "pill__weather-temp"
+    :text weatherTemp1)
+  )
+)

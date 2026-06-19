@@ -1,0 +1,20 @@
+# Backups & swap
+*.bak
+*.swp
+*~
+
+# Caches / runtime state
+.cache/
+__pycache__/
+*.log
+
+# Nested VCS (eww ships one upstream)
+**/.git/
+
+# Secrets — never commit these
+.env
+*.key
+*.pem
+*_token
+*secret*
+.wakatime.cfg

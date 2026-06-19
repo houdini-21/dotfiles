@@ -1,0 +1,9 @@
+(defwidget notifications_widget []
+  (box :class "notifications-widget" :orientation "v" :space-evenly false :spacing 10
+    (box :class "notifications-widget__header" :space-evenly false
+      (label :text "Notifications" :hexpand true :halign "start")
+      (button :class "notifications-widget__clear" :onclick "scripts/notifications.sh --clear" "Clear all"))
+
+    (scroll :class "notifications-widget__scroll" :height 300 :vscroll true :hscroll false
+      (literal :content notif_history)) ;;
+  ))

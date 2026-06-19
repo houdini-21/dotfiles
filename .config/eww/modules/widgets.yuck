@@ -1,0 +1,20 @@
+(defwidget bar_layout []
+  (centerbox :class "main-container"
+             :orientation "h"
+    (left_stuff)
+    (workspaces) 
+    (right_stuff)
+  )
+)
+
+(defwidget left_stuff []
+  (box :orientation "h" :space-evenly false :halign "start"  :valign "center" :spacing 10
+    (box :class "pill__profile")
+    (box :class "pill pill__time" time)
+    (box :class "pill pill__weather" 
+      (box :orientation "h" :spacing 1 :valign "center"
+        (box :class "weather-icon" weatherIcon1)
+        (box :class "weather-temp" weatherTemp1)
+      )
+    )
+  ))

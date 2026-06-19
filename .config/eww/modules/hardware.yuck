@@ -1,0 +1,19 @@
+(defwidget hardware_module []
+  (box :class "pill-container" :orientation "h" :spacing 8 :space-evenly false
+    ;; Pastilla CPU
+    (box :class "pill pill__cpu" :space-evenly false :spacing 10
+      (label :text "" :class "pill__cpu-icon")
+      (label :text "${round(EWW_CPU.avg, 0)}%" :class "pill__cpu-usage")
+      (label :text " ${cpu_temp}" :class "pill__cpu-temp"))
+    
+    ;; Pastilla RAM
+    (box :class "pill pill__ram" :space-evenly false :spacing 10
+      (label :text "" :class "pill__ram-icon")
+      (label :text "${round(EWW_RAM.used_mem_perc, 0)}%" :class "pill__ram-usage"))
+    
+    ;; Pastilla GPU
+    (box :class "pill pill__gpu" :space-evenly false :spacing 10
+      (label :text "󰢮" :class "pill__gpu-icon")
+      (label :text "${gpu_usage}" :class "pill__gpu-usage")
+      (label :text " ${gpu_temp}" :class "pill__gpu-temp"))
+  ))

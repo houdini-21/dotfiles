@@ -1,0 +1,86 @@
+(defwidget control_center []
+  (box :class "cc__window" :orientation "v" :space-evenly false :spacing 20
+    
+    ;; SECCIÓN 1: Perfil
+    (box :class "cc__profile" :orientation "h" :space-evenly false :spacing 15
+      (box :class "cc__profile-img")
+      (box :orientation "h" :space-evenly false :valign "center" :spacing 10
+        (label :class "cc__profile-name" :text "Houdini" :halign "start")
+        (box :orientation "h" :space-evenly false :class "cc__profile-separator")
+        (label :class "cc__profile-status" :text "Violet" :halign "start")
+      ))
+    
+    ;; SECCIÓN 2: Música (Spotify)
+    (box :class "cc__music" :orientation "v" :space-evenly false
+      (box :orientation "h" :space-evenly false :spacing 15
+        (box :class "cc__music-art" :style "background-image: url('${music_art}');")
+        (box :orientation "v" :valign "center" :space-evenly false
+          (label :class "cc__music-title" :text music_title :limit-width 20 :halign "start")
+          (label :class "cc__music-artist" :text music_artist :limit-width 25 :halign "start")))
+      
+      (box :class "cc__music-bar"
+        :orientation "v"
+        :space-evenly false
+        :spacing 5
+        (box
+          :class "cc__music-bar-container"
+          :orientation "h"
+          :space-evenly false
+          (scale
+            :min 0
+            :max lengthSong
+            :active true
+            :flipped false
+            :orientation "h"
+            :value positionSong
+            ; :onchange "playerctl position {}"
+          )
+        )
+        (box :class "cc__music-time" :orientation "h" :space-evenly true
+          (label :class "cc__music-time-pos" :text positionTime :halign "start")
+          (label :class "cc__music-time-len" :text lengthTime :halign "end")))
+      
+      (box :class "cc__music-controls" :halign "center" :spacing 10
+        (button :class "cc__music-controls-button" :onclick "playerctl previous" "")
+        (button :class "cc__music-controls-button" :onclick "playerctl play-pause" music_status_icon)
+        (button :class "cc__music-controls-button" :onclick "playerctl next" ""))
+    )
+    
+    (notifications_widget)
+    
+    ;; SECCIÓN 3: Volumen con cambio de color dinámico
+    (box :class "cc__volumen" :orientation "v" :spacing 10
+      (box :orientation "h" :space-evenly false :spacing 15
+        ;; El botón cambia su clase entre 'muted' y 'active'
+        (button :onclick "amixer set Master toggle"
+          :class "cc__volumen-mute-btn"
+          (label :class {volume_muted == "off" ? "cc__volumen-icon muted" : "cc__volumen-icon active"}
+          :text {volume_muted == "off" ? "" : ""}))
+        
+        (scale :class {volume_muted == "off" ? "cc__volumen-bar muted" : "cc__volumen-bar active"}
+          :hexpand true
+          :value {volume_perc ?: 0}
+          :onchange "amixer set Master {}%"
+          :min 0
+          :max 101
+          :active true
+        :orientation "h")
+      )
+    )
+    
+    ;; SECCIÓN 4: Quick Settings (Grid 2x2)
+    (box :orientation "v" :spacing 10
+        (box :spacing 10 :space-evenly true
+            (cc_button :label "Wifi" :status "On" :icon "󰤨" :class "active")
+            (cc_button :label "DND" :status "Off" :icon "󰂛" :class "inactive"))
+        (box :spacing 10 :space-evenly true
+            (cc_button :label "Func. Extra" :status "---" :icon "󰌵" :class "inactive")
+            (cc_button :label "Bluetooth" :status "On" :icon "󰂯" :class "active")))
+  ))
+
+(defwidget cc_button [label status icon class]
+    (box :class "cc-tile ${class}" :orientation "h" :space-evenly false :spacing 10
+        (label :text icon :class "cc-tile-icon")
+        (box :orientation "v" :space-evenly false :valign "center"
+            (label :text label :class "cc-tile-label" :halign "start")
+            (label :text status :class "cc-tile-status" :halign "start"))))
