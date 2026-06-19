@@ -64,7 +64,7 @@ yay -S eww rofi-greenclip catppuccin-gtk-theme-mocha catppuccin-cursors-mocha
 **2. Clone and link:**
 
 ```bash
-git clone https://github.com/fmarinero-designli/dotfiles.git ~/dotfiles
+git clone https://github.com/houdini-21/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
