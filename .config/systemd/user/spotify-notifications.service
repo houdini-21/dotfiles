@@ -1,0 +1,13 @@
+[Unit]
+Description=Spotify MPRIS Dunst Notifications
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash %h/scripts/spotify-notifications.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Temporizador para cambiar el wallpaper cada 30 minutos
+
+[Timer]
+# Se ejecuta 1 minuto después de iniciar sesión
+OnStartupSec=1min
+# Se vuelve a ejecutar cada 30 minutos
+OnUnitActiveSec=30min
+
+[Install]
+WantedBy=timers.target

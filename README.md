@@ -35,7 +35,11 @@ My personal **Arch Linux + bspwm** rice — Catppuccin Mocha (Teal) themed.
 ├── nitrogen/     # wallpaper manager
 ├── btop/ fastfetch/ flameshot/ nwg-look/ xsettingsd/ mpv/
 ├── gtk-2.0/ gtk-3.0/ gtk-4.0/ fontconfig/
+├── systemd/user/ # wallpaper.timer + wallpaper.service + spotify-notifications.service
 └── starship.toml, greenclip.toml, mimeapps.list
+scripts/
+├── change_wallpapers.sh      # time-of-day wallpaper switcher (run by wallpaper.timer)
+└── spotify-notifications.sh  # Spotify -> dunst now-playing notifications with cover art
 wallpapers/       # the wallpaper set (referenced by nitrogen + fastfetch)
 .zshrc .bashrc .bash_profile .xinitrc .Xresources .gtkrc-2.0
 ```
@@ -90,6 +94,11 @@ startx
   for all styles). The eww bars are opened from `bspwmrc`.
 - **Shell:** `.zshrc` expects `eza`, `starship`, `fastfetch`, `nvm`, and `pnpm`. Comment out
   what you don't use.
+- **Scripts & timers:** `install.sh` symlinks `scripts/` to `~/scripts` and enables two
+  `systemd --user` units — `wallpaper.timer` (switches the wallpaper by time of day every
+  30 min) and `spotify-notifications.service`. The wallpaper switcher (`change_wallpapers.sh`)
+  uses `nitrogen --head=0/1`, so adjust the heads if you don't run dual monitors. Manage them
+  with `systemctl --user status/stop/disable wallpaper.timer spotify-notifications.service`.
 
 ---
 

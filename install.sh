@@ -34,13 +34,33 @@ mkdir -p "$HOME/.config"
 
 echo "==> ~/.config"
 for item in "$DOTFILES"/.config/*; do
-  link "$item" "$HOME/.config/$(basename "$item")"
+  name="$(basename "$item")"
+  # systemd is handled per-unit below so we don't clobber other user units
+  [ "$name" = "systemd" ] && continue
+  link "$item" "$HOME/.config/$name"
 done
 
 echo "==> home dotfiles"
 for f in .zshrc .bashrc .bash_profile .xinitrc .Xresources .gtkrc-2.0; do
   [ -e "$DOTFILES/$f" ] && link "$DOTFILES/$f" "$HOME/$f"
 done
+
+echo "==> ~/scripts"
+link "$DOTFILES/scripts" "$HOME/scripts"
+
+echo "==> systemd --user units (per-file, leaves your other units alone)"
+if command -v systemctl >/dev/null 2>&1; then
+  mkdir -p "$HOME/.config/systemd/user"
+  for unit in "$DOTFILES"/.config/systemd/user/*; do
+    link "$unit" "$HOME/.config/systemd/user/$(basename "$unit")"
+  done
+  systemctl --user daemon-reload || true
+  systemctl --user enable --now wallpaper.timer spotify-notifications.service 2>/dev/null \
+    && echo "  enabled wallpaper.timer + spotify-notifications.service" \
+    || echo "  (enable later with: systemctl --user enable --now wallpaper.timer spotify-notifications.service)"
+else
+  echo "  systemctl not found — skipping"
+fi
 
 echo "==> wallpapers -> ~/Images (copied, not symlinked; existing files kept)"
 mkdir -p "$HOME/Images"

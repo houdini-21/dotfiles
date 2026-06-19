@@ -1,0 +1,10 @@
+[Unit]
+Description=Cambiar wallpaper segun la hora con Nitrogen
+
+[Service]
+Type=oneshot
+# Cambia 'tu_usuario' por tu nombre de usuario real
+ExecStart=/bin/bash %h/scripts/change_wallpapers.sh
+
+[Install]
+WantedBy=default.target
