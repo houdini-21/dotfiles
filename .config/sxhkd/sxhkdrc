@@ -50,6 +50,14 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
+# bspwm minimize: esconder la ventana enfocada
+super + n
+	bspc node -g hidden
+
+# restaurar las ventanas escondidas
+super + shift + n
+	bspc node any.hidden -g hidden=off
+
 #
 # focus/swap
 #

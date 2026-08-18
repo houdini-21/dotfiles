@@ -8,10 +8,17 @@ get_notifications() {
         echo "(label :class \"notifications-widget__empty\" :text \"No notifications\")"
     else
         echo "$RAW_HIST" | jq -r '
-            "(box :orientation \"v\" :spacing 10 " + 
-            ([.data[0][] | 
-                ((.body.data // "") | gsub("\""; "\\\"") | gsub("\n"; " ")) as $body_clean |
-                ((.summary.data // "Notificación") | gsub("\""; "\\\"")) as $title_clean |
+            # Quita etiquetas Pango (<span ...>, <b>, ...), decodifica entidades y escapa para yuck
+            def clean:
+                gsub("<[^>]*>"; "")
+                | gsub("&lt;"; "<") | gsub("&gt;"; ">")
+                | gsub("&quot;"; "\"") | gsub("&apos;"; "'\''") | gsub("&amp;"; "&")
+                | gsub("\""; "\\\"") | gsub("\n"; " ");
+
+            "(box :orientation \"v\" :spacing 10 " +
+            ([.data[0][] |
+                ((.body.data // "") | clean) as $body_clean |
+                ((.summary.data // "Notificación") | clean) as $title_clean |
                 ((.appname.data // "SISTEMA") | ascii_upcase) as $app_name |
                 (.icon_path.data // "") as $icon |
 

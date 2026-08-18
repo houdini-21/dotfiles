@@ -1,0 +1,9 @@
+[Unit]
+Description=Amy: caminata 30 min (Lun-Vie 12:30)
+
+[Timer]
+OnCalendar=Mon..Fri 12:30:00
+Unit=amy-reminder@walk.service
+
+[Install]
+WantedBy=timers.target

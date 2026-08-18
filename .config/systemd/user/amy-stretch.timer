@@ -1,0 +1,9 @@
+[Unit]
+Description=Amy: estiramiento tarde (Lun-Vie 16:00)
+
+[Timer]
+OnCalendar=Mon..Fri 16:00:00
+Unit=amy-reminder@stretch.service
+
+[Install]
+WantedBy=timers.target

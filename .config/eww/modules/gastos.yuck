@@ -1,0 +1,52 @@
+;; Gastos (gastos-agent): pill "238/800" + popup con el desglose del período.
+;; Los datos vienen de `main.py status --json` (solo lee SQLite, es instantáneo).
+
+(defpoll gastos :interval "5m"
+  :initial '{"total":"0","total_exact":"0.00","limit":"800","pct":0,"count":0,"report_date":"...","cards":[],"categories":[],"merchants":[]}'
+  "$HOME/gastos-agent/.venv/bin/python $HOME/gastos-agent/main.py status --json")
+
+;; Pill de la barra: cambia de color al acercarse al límite
+(defwidget gastos_pill []
+  (button :class "pill pill__gastos ${gastos.pct >= 100 ? 'crit' : gastos.pct >= 75 ? 'warn' : ''}"
+          :onclick "$HOME/.config/eww/scripts/gastos.sh &"
+          :tooltip "Gastos del período (reporte el ${gastos.report_date})"
+    "󰆛  ${gastos.total}/${gastos.limit}"))
+
+;; Fila etiqueta-monto reutilizable
+(defwidget gastos_row [name amount ?dim]
+  (box :space-evenly false
+    (label :class {dim == "true" ? "gastos__row-dim" : "gastos__row"}
+           :halign "start" :hexpand true :truncate true :text name)
+    (label :class {dim == "true" ? "gastos__row-dim" : "gastos__row"}
+           :halign "end" :text amount)))
+
+(defwidget gastos_module []
+  (box :class "gastos" :orientation "v" :space-evenly false :spacing 6
+    (label :class "gastos__title" :halign "start"
+           :text "Gastos del período")
+    (label :class "gastos__subtitle" :halign "start"
+           :text "se reporta el ${gastos.report_date} · ${gastos.count} compras")
+    (box :space-evenly false
+      (label :class "gastos__total ${gastos.pct >= 100 ? 'crit' : gastos.pct >= 75 ? 'warn' : 'ok'}"
+             :halign "start" :hexpand true
+             :text "$${gastos.total_exact} / $${gastos.limit}")
+      (label :class "gastos__pct ${gastos.pct >= 100 ? 'crit' : gastos.pct >= 75 ? 'warn' : 'ok'}"
+             :halign "end" :text "${gastos.pct}%"))
+    (progress :class "gastos__bar ${gastos.pct >= 100 ? 'crit' : gastos.pct >= 75 ? 'warn' : 'ok'}"
+              :value {gastos.pct > 100 ? 100 : gastos.pct})
+
+    (label :class "gastos__section" :halign "start" :text "Tarjetas")
+    (box :orientation "v" :spacing 3
+      (for card in {gastos.cards}
+        (gastos_row :name {card.name} :amount "$${card.amount}"
+                    :dim {card.amount == "0.00" ? "true" : "false"})))
+
+    (label :class "gastos__section" :halign "start" :text "Categorías")
+    (box :orientation "v" :spacing 3
+      (for cat in {gastos.categories}
+        (gastos_row :name {cat.name} :amount "$${cat.amount}")))
+
+    (label :class "gastos__section" :halign "start" :text "Top comercios")
+    (box :orientation "v" :spacing 3
+      (for m in {gastos.merchants}
+        (gastos_row :name {m.name} :amount "$${m.amount}")))))

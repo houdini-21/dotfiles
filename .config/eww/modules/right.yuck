@@ -11,6 +11,7 @@
 
 ;; Widget base de Iconos (reutilizable en ambas)
 (defwidget system_info []
-  (box :class "pill pill__sysinfo" :spacing 12
-    (label :text "󰤨" :class "pill__sysinfo-wifi-icon")
-    (label :text "" :class "pill__sysinfo-vol-icon")))
+  (button :class "pill pill__sysinfo" :onclick "eww open --toggle control_center"
+    (box :spacing 12
+      (label :text "󰤨" :class "pill__sysinfo-wifi-icon")
+      (label :text "" :class "pill__sysinfo-vol-icon"))))

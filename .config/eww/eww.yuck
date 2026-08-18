@@ -1,4 +1,5 @@
 (include "./modules/variables.yuck")
+(include "./modules/gastos.yuck")
 (include "./modules/notification.yuck")
 (include "./modules/workspaces.yuck")
 (include "./modules/weather.yuck")
@@ -10,7 +11,7 @@
 
 ;; BARRA 1: Monitor Principal (Completa)
 (defwindow bar_primary
-  :monitor 1
+  :monitor 0
   :geometry (geometry :x "0%" :y "0px" :width "100%" :height "45px" :anchor "top center")
   :stacking "fg"
   :reserve (struts :distance "45px" :side "top")
@@ -19,7 +20,7 @@
 
 ;; BARRA 2: Monitor Secundario (Simplificada)
 (defwindow bar_secondary
-  :monitor 0
+  :monitor 1
   :geometry (geometry :x "0%" :y "0px" :width "100%" :height "45px" :anchor "top center")
   :stacking "fg"
   :reserve (struts :distance "45px" :side "top")
@@ -28,7 +29,21 @@
 
 
 (defwindow control_center
-  :monitor 1
+  :monitor 0
   :geometry (geometry :x "0px" :y "45px" :width "450px" :anchor "top right")
   :stacking "fg"
   (control_center))
+
+;; Popup de calendario en la barra secundaria (esquina de la fecha)
+(defwindow calendar
+  :monitor 1
+  :geometry (geometry :x "15px" :y "45px" :anchor "top left")
+  :stacking "fg"
+  (box :class "calendar-popup" (calendar_module)))
+
+;; Popup de gastos (gastos-agent) bajo la pill de la barra principal
+(defwindow gastos_popup
+  :monitor 0
+  :geometry (geometry :x "15px" :y "45px" :width "340px" :anchor "top left")
+  :stacking "fg"
+  (box :class "gastos-popup" (gastos_module)))

@@ -3,9 +3,10 @@
   (box :orientation "h" :space-evenly false :halign "start" :valign "center" :spacing 10
     (box :class "pill__profile")
     (box :class "pill pill__time" time)
-    (weather_module)))
+    (weather_module)
+    (gastos_pill))) ;; Gastos -> popup con el desglose del período
 
 ;; El nuevo para la barra secundaria
 (defwidget secondary_left []
   (box :orientation "h" :space-evenly false :halign "start" :valign "center" :spacing 10
-    (box :class "pill pill__date" date))) ;; Solo el tiempo
+    (button :class "pill pill__date" :onclick "eww open --toggle calendar" date))) ;; Fecha -> calendario

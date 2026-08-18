@@ -1,0 +1,9 @@
+[Unit]
+Description=Amy: pausa anti-silla cada hora (Lun-Vie 9-18)
+
+[Timer]
+OnCalendar=Mon..Fri 09..18:00:00
+Unit=amy-reminder@standup.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,6 @@
+[Unit]
+Description=Amy reminder (%i)
+
+[Service]
+Type=oneshot
+ExecStart=/home/houdini/.local/bin/amy-reminder.sh %i

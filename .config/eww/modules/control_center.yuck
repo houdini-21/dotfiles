@@ -12,8 +12,10 @@
     
     ;; SECCIÓN 2: Música (Spotify)
     (box :class "cc__music" :orientation "v" :space-evenly false
+         :style {music_art.blur != "" ? "background-image: url('${music_art.blur}');" : ""}
+     (box :class "cc__music-overlay" :orientation "v" :space-evenly false
       (box :orientation "h" :space-evenly false :spacing 15
-        (box :class "cc__music-art" :style "background-image: url('${music_art}');")
+        (box :class "cc__music-art" :style {music_art.art != "" ? "background-image: url('${music_art.art}');" : ""})
         (box :orientation "v" :valign "center" :space-evenly false
           (label :class "cc__music-title" :text music_title :limit-width 20 :halign "start")
           (label :class "cc__music-artist" :text music_artist :limit-width 25 :halign "start")))
@@ -28,12 +30,12 @@
           :space-evenly false
           (scale
             :min 0
-            :max lengthSong
-            :active true
+            :max {lengthSong > 0 ? lengthSong : 1}
+            :active {lengthSong > 0}
             :flipped false
             :orientation "h"
             :value positionSong
-            ; :onchange "playerctl position {}"
+            :onchange "playerctl position {}"
           )
         )
         (box :class "cc__music-time" :orientation "h" :space-evenly true
@@ -44,7 +46,7 @@
         (button :class "cc__music-controls-button" :onclick "playerctl previous" "")
         (button :class "cc__music-controls-button" :onclick "playerctl play-pause" music_status_icon)
         (button :class "cc__music-controls-button" :onclick "playerctl next" ""))
-    )
+    ))
     
     (notifications_widget)
     
@@ -71,16 +73,40 @@
     ;; SECCIÓN 4: Quick Settings (Grid 2x2)
     (box :orientation "v" :spacing 10
         (box :spacing 10 :space-evenly true
-            (cc_button :label "Wifi" :status "On" :icon "󰤨" :class "active")
-            (cc_button :label "DND" :status "Off" :icon "󰂛" :class "inactive"))
+            (cc_button :label "Wifi"
+                :status {wifi_state == "on" ? "On" : "Off"}
+                :icon {wifi_state == "on" ? "󰤨" : "󰤭"}
+                :class {wifi_state == "on" ? "active" : "inactive"}
+                :onclick "scripts/controls.sh wifi-toggle &")
+            (cc_button :label "DND"
+                :status {dnd_state == "on" ? "On" : "Off"}
+                :icon {dnd_state == "on" ? "󰂛" : "󰂚"}
+                :class {dnd_state == "on" ? "active" : "inactive"}
+                :onclick "scripts/controls.sh dnd-toggle &"))
         (box :spacing 10 :space-evenly true
-            (cc_button :label "Func. Extra" :status "---" :icon "󰌵" :class "inactive")
-            (cc_button :label "Bluetooth" :status "On" :icon "󰂯" :class "active")))
+            (cc_button :label "Screenshot"
+                :status "Capture"
+                :icon "󰄀"
+                :class "inactive"
+                :onclick "scripts/controls.sh screenshot &")
+            (cc_button :label "Bluetooth"
+                :status {bt_state == "on" ? "On" : "Off"}
+                :icon {bt_state == "on" ? "󰂯" : "󰂲"}
+                :class {bt_state == "on" ? "active" : "inactive"}
+                :onclick "scripts/controls.sh bt-toggle &")))
+
+    ;; SECCIÓN 5: Calendario
+    (calendar_module)
   ))
 
-(defwidget cc_button [label status icon class]
-    (box :class "cc-tile ${class}" :orientation "h" :space-evenly false :spacing 10
-        (label :text icon :class "cc-tile-icon")
-        (box :orientation "v" :space-evenly false :valign "center"
-            (label :text label :class "cc-tile-label" :halign "start")
-            (label :text status :class "cc-tile-status" :halign "start"))))
+(defwidget calendar_module []
+  (box :class "cc__calendar" :orientation "v"
+    (calendar :class "cc__calendar-widget")))
+
+(defwidget cc_button [label status icon class onclick]
+    (button :class "cc-tile ${class}" :onclick onclick
+        (box :orientation "h" :space-evenly false :spacing 10
+            (label :text icon :class "cc-tile-icon")
+            (box :orientation "v" :space-evenly false :valign "center"
+                (label :text label :class "cc-tile-label" :halign "start")
+                (label :text status :class "cc-tile-status" :halign "start")))))

@@ -21,3 +21,5 @@ video/quicktime=firefox.desktop;com.google.Chrome.desktop;
 application/sql=antigravity.desktop;
 text/plain=antigravity.desktop;
 application/x-zerosize=antigravity.desktop;
+text/markdown=vim.desktop;nvim.desktop;
+text/csv=antigravity-ide.desktop;antigravity.desktop;nvim.desktop;

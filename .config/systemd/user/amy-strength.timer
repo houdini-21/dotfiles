@@ -1,0 +1,9 @@
+[Unit]
+Description=Amy: rutina anti-lagarto (Lun/Mie/Vie 06:00)
+
+[Timer]
+OnCalendar=Mon,Wed,Fri 06:00:00
+Unit=amy-reminder@strength.service
+
+[Install]
+WantedBy=timers.target

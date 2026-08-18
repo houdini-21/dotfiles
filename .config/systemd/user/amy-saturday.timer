@@ -1,0 +1,9 @@
+[Unit]
+Description=Amy: actividad libre (Sab 10:00)
+
+[Timer]
+OnCalendar=Sat 10:00:00
+Unit=amy-reminder@saturday.service
+
+[Install]
+WantedBy=timers.target

@@ -1,16 +1,43 @@
-$bg-main: #11111b;
-$active-workspace: #b5bfe2;
-$focus-workspace: #c6d0f5;
-$inactive-workspace: #51576d;
-$bg-pill: #1e1e2e;
-$fg-main: #fff;
-$accent: #89b4fa;
+// Catppuccin Mocha
+$rosewater: #f5e0dc;
+$flamingo: #f2cdcd;
+$pink: #f5c2e7;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
 $surface0: #313244;
 $base: #1e1e2e;
-$lavender: #b4befe;
-$overlay0: #6c7086;
-$red: #f38ba8;
-$green: #a6e3a1;
+$mantle: #181825;
+$crust: #11111b;
+
+// Roles semánticos
+// OLED: la barra es persistente, así que usa texto/acentos atenuados.
+// Los popups (cc, calendario) son transitorios y mantienen los colores originales.
+$bg-main: $crust;
+$bg-popup: $crust;
+$bg-pill: $base;
+$fg-main: $subtext0;
+$accent: $blue;
+$accent-dim: rgba($blue, 0.75);
+$active-workspace: $subtext0;
+$focus-workspace: $subtext1;
+$inactive-workspace: $surface1;
 
 window {
   background-color: transparent;
@@ -19,7 +46,7 @@ window {
 .bar_primary,
 .bar_secondary {
   background-color: $bg-main;
-  color: #cdd6f4;
+  color: $fg-main;
   font-family: "SF Pro";
   font-size: 14px;
   padding: 0px 15px;
@@ -74,11 +101,17 @@ window {
   }
 
   &__power {
-    background-color: $accent;
-    color: #1e1e2e;
+    // OLED: sin relleno sólido de acento; solo el icono coloreado
+    background-color: $bg-pill;
+    color: $accent-dim;
     border-radius: 50%;
     font-size: 18px;
     padding: 2px 8px;
+
+    &:hover {
+      background-color: $accent;
+      color: $base;
+    }
   }
 
   &__profile {
@@ -89,7 +122,8 @@ window {
     min-width: 30px;
 
     border-radius: 50%;
-    border: 1px solid rgba(49, 50, 68, 0.1);
+    border: 1px solid rgba($surface0, 0.1);
+    opacity: 0.8; // OLED: atenúa la foto estática
   }
 
   &__weather {
@@ -160,7 +194,7 @@ window {
 
 .cc {
   &__window {
-    background-color: $bg-main;
+    background-color: $bg-popup;
     border-radius: 0px 0px 0px 20px;
     padding: 25px;
   }
@@ -194,13 +228,21 @@ window {
 
   &__music {
     background-color: $bg-pill;
-    padding: 15px;
+    background-size: cover;
+    background-position: center;
     border-radius: 20px;
+
+    &-overlay {
+      background-color: rgba($crust, 0.55);
+      border-radius: 20px;
+      padding: 15px;
+    }
 
     &-art {
       min-width: 60px;
       min-height: 60px;
       background-size: cover;
+      background-position: center;
       border-radius: 12px;
     }
 
@@ -214,7 +256,7 @@ window {
       font-family: "SF Pro";
       font-size: 14px;
       font-weight: 500;
-      color: $overlay0;
+      color: rgba($text, 0.85);
     }
 
     &-bar {
@@ -237,7 +279,7 @@ window {
           border-radius: 50px;
           min-height: 8px;
           min-width: 435px;
-          background-color: $overlay0;
+          background-color: rgba($text, 0.3);
         }
       }
     }
@@ -256,15 +298,57 @@ window {
       &-pos {
         font-family: "SF Pro";
         font-size: 13px;
-        color: $overlay0;
+        color: rgba($text, 0.8);
         font-weight: 500;
       }
 
       &-len {
         font-family: "SF Pro";
         font-size: 13px;
-        color: $overlay0;
+        color: rgba($text, 0.8);
         font-weight: 500;
+      }
+    }
+  }
+
+  &__calendar {
+    background-color: $bg-pill;
+    border-radius: 20px;
+    padding: 10px;
+
+    calendar {
+      background-color: transparent;
+      color: $fg-main;
+      font-family: "SF Pro";
+      font-size: 14px;
+      padding: 5px;
+
+      &.header {
+        color: $fg-main;
+        font-weight: 700;
+      }
+
+      &.button {
+        color: $accent;
+        background-color: transparent;
+
+        &:hover {
+          color: $lavender;
+        }
+      }
+
+      &.highlight {
+        color: $lavender;
+        font-weight: 600;
+      }
+
+      &:selected {
+        color: $accent;
+        font-weight: 700;
+      }
+
+      &:indeterminate {
+        color: $inactive-workspace;
       }
     }
   }
@@ -312,6 +396,94 @@ window {
     &-mute-btn {
       background-color: transparent;
     }
+  }
+}
+
+.calendar-popup {
+  background-color: $bg-popup;
+  border-radius: 0px 0px 20px 20px;
+  padding: 15px;
+}
+
+// Pill de gastos en la barra (atenuada como el resto; sube de color con el %)
+.pill__gastos {
+  color: $fg-main;
+
+  &.warn { color: rgba($peach, 0.85); }
+  &.crit { color: rgba($red, 0.85); }
+}
+
+// Popup de gastos (mismo rol transitorio que el calendario)
+.gastos-popup {
+  background-color: $bg-popup;
+  border-radius: 0px 0px 20px 20px;
+  padding: 18px;
+}
+
+.gastos {
+  font-family: "SF Pro";
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: $text;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    color: $overlay1;
+  }
+
+  &__total {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 6px;
+  }
+
+  &__pct {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 6px;
+  }
+
+  &__total.ok, &__pct.ok { color: $green; }
+  &__total.warn, &__pct.warn { color: $peach; }
+  &__total.crit, &__pct.crit { color: $red; }
+
+  &__bar {
+    margin: 6px 0px 4px;
+
+    trough {
+      background-color: $surface0;
+      border-radius: 50px;
+      min-height: 8px;
+
+      progress {
+        border-radius: 50px;
+        min-height: 8px;
+      }
+    }
+
+    &.ok trough progress { background-color: $green; }
+    &.warn trough progress { background-color: $peach; }
+    &.crit trough progress { background-color: $red; }
+  }
+
+  &__section {
+    font-size: 13px;
+    font-weight: 700;
+    color: $accent;
+    margin-top: 10px;
+  }
+
+  &__row {
+    font-size: 13px;
+    color: $subtext1;
+  }
+
+  &__row-dim {
+    font-size: 13px;
+    color: $surface2;
   }
 }
 
@@ -397,18 +569,31 @@ scale contents trough slider {
   background-color: $bg-pill;
   padding: 15px;
   border-radius: 15px;
+  transition: 200ms;
 
   &.active {
     background-color: $accent;
     color: $bg-main;
 
-    & > .cc-tile-icon {
+    .cc-tile-icon {
       color: $bg-main;
+    }
+
+    .cc-tile-status {
+      color: $bg-main;
+    }
+
+    &:hover {
+      background-color: $lavender;
     }
   }
 
   &.inactive {
     border: 2px solid transparent;
+
+    &:hover {
+      background-color: $surface0;
+    }
   }
 
   &-icon {

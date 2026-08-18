@@ -7,17 +7,16 @@
 (defpoll weatherTemp1 :interval "3h" "scripts/weather.sh --temp 0")
 
 ;; Música
-(defpoll music_title :interval "1s" "playerctl metadata title || echo 'No Media'")
-(defpoll music_artist :interval "1s" "playerctl metadata artist || echo 'Unknown'")
-(deflisten music_art :initial "" "scripts/spotify_art.sh")
+(defpoll music_title :interval "1s" "timeout 2 playerctl metadata title 2>/dev/null || echo 'No Media'")
+(defpoll music_artist :interval "1s" "timeout 2 playerctl metadata artist 2>/dev/null || echo 'Unknown'")
+(deflisten music_art :initial '{"art":"","blur":""}' "scripts/spotify_art.sh")
 
-(defpoll music_perc :interval "1s" :initial "0" "playerctl position -p spotify --format '{{ percent(position, mpris:length) }}' 2>/dev/null || echo 0")
-(defpoll music_status_icon :interval "1s" :initial "󰐊" "[ $(playerctl -p spotify status 2>/dev/null) = 'Playing' ] && echo '' || echo ''")
-(defpoll lengthSong :interval "1s" :initial 0 "playerctl metadata --format '{{ mpris:length / 1000000 }}' 2>/dev/null || echo 0")
+(defpoll music_status_icon :interval "1s" :initial "󰐊" "timeout 2 playerctl status 2>/dev/null | grep -q Playing && echo '' || echo ''")
+(defpoll lengthSong :interval "1s" :initial 0 "timeout 2 playerctl metadata --format '{{ mpris:length / 1000000 }}' 2>/dev/null || echo 0")
 
-(defpoll positionSong :interval "1s" :initial 0 "playerctl position -p spotify --format '{{ position / 1000000 }}' 2>/dev/null || echo 0")
-(defpoll positionTime :interval "1s" "playerctl position -p spotify --format '{{ duration(position) }}' || echo '0:00'")
-(defpoll lengthTime :interval "1s" "playerctl metadata -p spotify --format '{{ duration(mpris:length) }}' || echo '0:00'")
+(defpoll positionSong :interval "1s" :initial 0 "timeout 2 playerctl position 2>/dev/null || echo 0")
+(defpoll positionTime :interval "1s" :initial "0:00" "timeout 2 playerctl position --format '{{ duration(position) }}' 2>/dev/null || echo '0:00'")
+(defpoll lengthTime :interval "1s" :initial "0:00" "timeout 2 playerctl metadata --format '{{ duration(mpris:length) }}' 2>/dev/null || echo '0:00'")
 
 ;; Sistema
 (defpoll volume_perc :interval "1s" "amixer sget Master | grep 'Front Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%'")
@@ -33,3 +32,9 @@
 
 
 (defpoll notif_history :interval "1s" "scripts/notifications.sh")
+
+;; Quick Settings del Control Center
+(defpoll wifi_state :interval "3s" :initial "on" "scripts/controls.sh wifi-status")
+(defpoll bt_state :interval "3s" :initial "on" "scripts/controls.sh bt-status")
+(defpoll dnd_state :interval "3s" :initial "off" "scripts/controls.sh dnd-status")
+
