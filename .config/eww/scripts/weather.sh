@@ -8,8 +8,8 @@ cache_weather_hex=${cache_dir}/weather-hex
 cache_weather_icon=${cache_dir}/weather-icon
 
 ## Weather data
-KEY="4e061c17294260845d5721128beff400"
-#KEY="your_openweathermap_api_key_here"
+# NOTA: la key real NO va en el repo (es público). Poner la tuya solo en el archivo local ~/.config/eww/scripts/weather.sh
+KEY="your_openweathermap_api_key_here"
 ID="3583101"
 UNIT="metric"	# Available options : 'metric' or 'imperial'
 LAT="13.72"
