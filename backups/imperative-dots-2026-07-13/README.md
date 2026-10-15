@@ -31,6 +31,8 @@ zshrc.as-left-by-script   # el .zshrc tal como quedó tras correr el script
 - **Los 319 wallpapers** (~415 MB): viven aparte, no tiene sentido versionarlos.
 - La clave real de OpenWeatherMap: saneada a `TU_API_KEY_AQUI` en `imperative-dots-version` y en
   `config/hypr/scripts/quickshell/calendar/.env` antes del primer commit.
+- El `calendar/.env` en sí: la regla `.env` del `.gitignore` del repo lo deja fuera (a propósito).
+  Su estructura queda documentada en `config/hypr/scripts/quickshell/calendar/.env.example`.
 
 ## Por qué se revirtió
 
