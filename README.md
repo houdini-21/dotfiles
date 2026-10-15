@@ -43,6 +43,8 @@ scripts/
 ├── phone_watch.py            # vigia de precios de telefonos (La Curacao / RadioShack / waps)
 └── spotify-notifications.sh  # Spotify -> dunst now-playing notifications with cover art
 wallpapers/       # the wallpaper set (referenced by nitrogen + fastfetch)
+backups/          # snapshots historicos — install.sh los ignora
+└── imperative-dots-2026-07-13/   # rice Hyprland + Quickshell que probe y reverti ese dia
 .zshrc .bashrc .bash_profile .xinitrc .Xresources .gtkrc-2.0
 ```
 
@@ -104,6 +106,11 @@ startx
   Los timers `alt-*.timer` (recordatorios anti-silla, caminata) y `phone-watch.timer` llaman a
   `scripts/alt-reminder.sh` y `~/.hermes/scripts/phone_watch.py`: `install.sh` enlaza el primero
   en `~/.local/bin/alt-reminder.sh`, que es la ruta que espera `alt-reminder@.service`.
+- **`backups/`:** snapshots historicos, no los toca `install.sh`. `imperative-dots-2026-07-13/` es el
+  rice Hyprland + Quickshell ([ilyamiro/imperative-dots](https://github.com/ilyamiro/imperative-dots)
+  v1.7.6-1, commit `eefff2fa`) que instalé como prueba el 13-jul-2026 y reverti el mismo dia. El
+  upstream **no declara licencia**, así que queda aca como respaldo personal, no como redistribucion.
+  Sin wallpapers (415 MB, viven aparte) y con la API key de OpenWeatherMap saneada a placeholder.
 
 ---
 
