@@ -1,0 +1,7 @@
+[Unit]
+Description=Alt: vigia de precios de telefonos (La Curacao / RadioShack / Xiaomi Store SV)
+
+[Service]
+Type=oneshot
+TimeoutStartSec=900
+ExecStart=/usr/bin/python3 /home/houdini/.hermes/scripts/phone_watch.py --notify

@@ -1,0 +1,6 @@
+[Unit]
+Description=Alt reminder (%i)
+
+[Service]
+Type=oneshot
+ExecStart=/home/houdini/.local/bin/alt-reminder.sh %i

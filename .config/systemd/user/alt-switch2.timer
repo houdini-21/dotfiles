@@ -1,0 +1,9 @@
+[Unit]
+Description=Alt: recordatorio puntual (case Switch 2, 20/10 19:30)
+
+[Timer]
+OnCalendar=2026-10-20 19:30:00
+Unit=alt-reminder@switch2.service
+
+[Install]
+WantedBy=timers.target
