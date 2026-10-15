@@ -35,10 +35,12 @@ My personal **Arch Linux + bspwm** rice — Catppuccin Mocha (Teal) themed.
 ├── nitrogen/     # wallpaper manager
 ├── btop/ fastfetch/ flameshot/ nwg-look/ xsettingsd/ mpv/
 ├── gtk-2.0/ gtk-3.0/ gtk-4.0/ fontconfig/
-├── systemd/user/ # wallpaper.timer + wallpaper.service + spotify-notifications.service
+├── systemd/user/ # wallpaper.timer + spotify-notifications.service + alt-*.timer + phone-watch.timer
 └── starship.toml, greenclip.toml, mimeapps.list
 scripts/
+├── alt-reminder.sh           # recordatorios anti-silla/caminata (invocado por alt-reminder@.service)
 ├── change_wallpapers.sh      # time-of-day wallpaper switcher (run by wallpaper.timer)
+├── phone_watch.py            # vigia de precios de telefonos (La Curacao / RadioShack / waps)
 └── spotify-notifications.sh  # Spotify -> dunst now-playing notifications with cover art
 wallpapers/       # the wallpaper set (referenced by nitrogen + fastfetch)
 .zshrc .bashrc .bash_profile .xinitrc .Xresources .gtkrc-2.0
@@ -99,6 +101,9 @@ startx
   30 min) and `spotify-notifications.service`. The wallpaper switcher (`change_wallpapers.sh`)
   uses `nitrogen --head=0/1`, so adjust the heads if you don't run dual monitors. Manage them
   with `systemctl --user status/stop/disable wallpaper.timer spotify-notifications.service`.
+  Los timers `alt-*.timer` (recordatorios anti-silla, caminata) y `phone-watch.timer` llaman a
+  `scripts/alt-reminder.sh` y `~/.hermes/scripts/phone_watch.py`: `install.sh` enlaza el primero
+  en `~/.local/bin/alt-reminder.sh`, que es la ruta que espera `alt-reminder@.service`.
 
 ---
 

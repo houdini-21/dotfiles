@@ -48,6 +48,9 @@ done
 echo "==> ~/scripts"
 link "$DOTFILES/scripts" "$HOME/scripts"
 
+echo "==> ~/.local/bin (scripts que invocan las units de systemd)"
+link "$DOTFILES/scripts/alt-reminder.sh" "$HOME/.local/bin/alt-reminder.sh"
+
 echo "==> systemd --user units (per-file, leaves your other units alone)"
 if command -v systemctl >/dev/null 2>&1; then
   mkdir -p "$HOME/.config/systemd/user"
